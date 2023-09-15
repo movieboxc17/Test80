@@ -7,21 +7,38 @@
 </head>
 <body>
     <h1>Welcome to the Online Store</h1>
+    
+    <!-- Button to navigate to the product upload page -->
+    <a href="upload.html">Upload Products</a>
+
     <h2>Products</h2>
     <ul id="product-list">
-        <!-- Product items will be dynamically added here from the server or database -->
+        <!-- Product items will be dynamically added here -->
     </ul>
     
     <h2>Order Summary</h2>
     <div id="order-summary">
         <!-- Order summary information will be updated here -->
     </div>
-    
-    <!-- Add a button or link to navigate to the upload page -->
-    <a href="upload.html">Upload Products</a>
 
     <script>
-        // JavaScript code for fetching and displaying products goes here
+        // Define an array to store the uploaded products (simulated data)
+        const uploadedProducts = [];
+
+        // Function to add a product to the array and display it
+        function addProduct(productName, productPrice) {
+            const product = { name: productName, price: productPrice };
+            uploadedProducts.push(product);
+
+            // Display the product in the list
+            const productList = document.getElementById("product-list");
+            const listItem = document.createElement("li");
+            listItem.textContent = `${product.name} - $${product.price}`;
+            productList.appendChild(listItem);
+        }
+
+        // Example: Simulate adding a product (you would replace this with your actual upload logic)
+        // addProduct("Sample Product", 19.99);
     </script>
 </body>
 </html>
