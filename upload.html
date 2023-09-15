@@ -17,12 +17,26 @@
     <!-- Add a button or link to navigate back to the shop page -->
     <a href="index.html">Back to Shop</a>
 
+    <h2>Uploaded Products</h2>
+    <ul id="uploaded-product-list">
+        <!-- Uploaded product items will be dynamically added here -->
+    </ul>
+
     <script>
         // JavaScript code for password authentication and product upload goes here
         const uploadForm = document.getElementById("upload-form");
+        const uploadedProductList = document.getElementById("uploaded-product-list");
 
         uploadForm.addEventListener("submit", function (e) {
             e.preventDefault();
+            const password = document.getElementById("password").value;
+
+            // Check if the password is correct
+            if (password !== "Hello123") {
+                alert("Incorrect password. Product upload denied.");
+                return;
+            }
+
             const productName = document.getElementById("product-name").value;
             const productPrice = document.getElementById("product-price").value;
 
@@ -43,21 +57,32 @@
             document.getElementById("product-price").value = "";
 
             // Optionally, update the displayed product list on the upload page
-            displayProducts();
+            displayUploadedProducts();
         });
 
-        // Function to display products from local storage (reuse the function from index.html)
-        function displayProducts() {
-            const productList = document.getElementById("product-list");
-            productList.innerHTML = "";
+        // Function to display uploaded products from local storage
+        function displayUploadedProducts() {
+            uploadedProductList.innerHTML = "";
 
             const products = JSON.parse(localStorage.getItem("products")) || [];
-            products.forEach(product => {
+            products.forEach((product, index) => {
                 const listItem = document.createElement("li");
-                listItem.textContent = `${product.name} - $${product.price}`;
-                productList.appendChild(listItem);
+                listItem.innerHTML = `${product.name} - $${product.price} 
+                <button onclick="deleteProduct(${index})">Delete</button>`;
+                uploadedProductList.appendChild(listItem);
             });
         }
+
+        // Function to delete a product from the list
+        function deleteProduct(index) {
+            const products = JSON.parse(localStorage.getItem("products")) || [];
+            products.splice(index, 1); // Remove the product at the specified index
+            localStorage.setItem("products", JSON.stringify(products));
+            displayUploadedProducts(); // Refresh the displayed product list
+        }
+
+        // Call the displayUploadedProducts function to show any previously uploaded products
+        displayUploadedProducts();
     </script>
 </body>
 </html>
