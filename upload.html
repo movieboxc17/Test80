@@ -64,6 +64,14 @@
         function displayUploadedProducts() {
             uploadedProductList.innerHTML = "";
 
+            const password = document.getElementById("password").value;
+
+            // Check if the password is correct
+            if (password !== "Hello123") {
+                alert("Incorrect password. Product list access denied.");
+                return;
+            }
+
             const products = JSON.parse(localStorage.getItem("products")) || [];
             products.forEach((product, index) => {
                 const listItem = document.createElement("li");
