@@ -3,32 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Online Store</title>
+    <title>Shop</title>
+    <style>
+        /* Add your CSS styles here for the shop page */
+    </style>
 </head>
 <body>
-    <h1>Welcome to the Online Store</h1>
+    <h1>Welcome to the Shop</h1>
     
-    <!-- Button to navigate to the product upload page -->
-    <a href="upload.html">Upload Products</a>
-
     <h2>Products</h2>
     <ul id="product-list">
-        <!-- Product items will be dynamically added here -->
+        <!-- Products will be dynamically added here -->
     </ul>
-    
-    <h2>Order Summary</h2>
-    <div id="order-summary">
-        <!-- Order summary information will be updated here -->
-    </div>
+
+    <!-- Add a button or link to navigate to the upload page -->
+    <a class="link" href="upload.html">Go to Upload</a>
 
     <script>
-        // Function to display products from local storage
+        // JavaScript code to display products goes here
         function displayProducts() {
             const productList = document.getElementById("product-list");
-            productList.innerHTML = ""; // Clear the list
 
-            // Retrieve and display products from local storage
+            // Retrieve products from local storage
             const products = JSON.parse(localStorage.getItem("products")) || [];
+
+            // Clear any existing products in the list
+            productList.innerHTML = "";
+
+            // Display products in the list
             products.forEach(product => {
                 const listItem = document.createElement("li");
                 listItem.textContent = `${product.name} - $${product.price}`;
@@ -36,7 +38,7 @@
             });
         }
 
-        // Call the displayProducts function to show any previously uploaded products
+        // Call the displayProducts function to show products on page load
         displayProducts();
     </script>
 </body>
