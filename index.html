@@ -22,23 +22,22 @@
     </div>
 
     <script>
-        // Define an array to store the uploaded products (simulated data)
-        const uploadedProducts = [];
-
-        // Function to add a product to the array and display it
-        function addProduct(productName, productPrice) {
-            const product = { name: productName, price: productPrice };
-            uploadedProducts.push(product);
-
-            // Display the product in the list
+        // Function to display products from local storage
+        function displayProducts() {
             const productList = document.getElementById("product-list");
-            const listItem = document.createElement("li");
-            listItem.textContent = `${product.name} - $${product.price}`;
-            productList.appendChild(listItem);
+            productList.innerHTML = ""; // Clear the list
+
+            // Retrieve and display products from local storage
+            const products = JSON.parse(localStorage.getItem("products")) || [];
+            products.forEach(product => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${product.name} - $${product.price}`;
+                productList.appendChild(listItem);
+            });
         }
 
-        // Example: Simulate adding a product (you would replace this with your actual upload logic)
-        // addProduct("Sample Product", 19.99);
+        // Call the displayProducts function to show any previously uploaded products
+        displayProducts();
     </script>
 </body>
 </html>
