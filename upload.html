@@ -19,6 +19,45 @@
 
     <script>
         // JavaScript code for password authentication and product upload goes here
+        const uploadForm = document.getElementById("upload-form");
+
+        uploadForm.addEventListener("submit", function (e) {
+            e.preventDefault();
+            const productName = document.getElementById("product-name").value;
+            const productPrice = document.getElementById("product-price").value;
+
+            // Create a product object
+            const product = { name: productName, price: productPrice };
+
+            // Retrieve existing products from local storage or initialize as an empty array
+            const existingProducts = JSON.parse(localStorage.getItem("products")) || [];
+
+            // Add the new product to the array
+            existingProducts.push(product);
+
+            // Store the updated product list in local storage
+            localStorage.setItem("products", JSON.stringify(existingProducts));
+
+            // Clear the form fields
+            document.getElementById("product-name").value = "";
+            document.getElementById("product-price").value = "";
+
+            // Optionally, update the displayed product list on the upload page
+            displayProducts();
+        });
+
+        // Function to display products from local storage (reuse the function from index.html)
+        function displayProducts() {
+            const productList = document.getElementById("product-list");
+            productList.innerHTML = "";
+
+            const products = JSON.parse(localStorage.getItem("products")) || [];
+            products.forEach(product => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `${product.name} - $${product.price}`;
+                productList.appendChild(listItem);
+            });
+        }
     </script>
 </body>
 </html>
